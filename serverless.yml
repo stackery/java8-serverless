@@ -3,6 +3,9 @@ frameworkVersion: '>=1.2.0 <2.0.0'
 provider:
   name: aws
   runtime: java8
+  plugins:
+    - serverless-iam-roles-per-function
+    - serverless-cf-vars
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -12,17 +15,13 @@ provider:
         - xray:GetSamplingTargets
         - xray:GetSamplingStatisticSummaries
       Resource: '*'
-package:
-  artifact: build/distributions/java8-serverless.zip
-plugins:
-  - serverless-iam-roles-per-function
-  - serverless-cf-vars
 functions:
   Function:
     handler: Handler::handler
-    description: !Sub
-      - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
-      - ResourceName: Function
+    description:
+      Fn::Sub:
+        - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
+        - ResourceName: Function
     runtime: java8
     tracing: Active
     iamRoleStatements:
