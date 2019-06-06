@@ -18,9 +18,10 @@ provider:
 functions:
   Function:
     handler: Handler::handler
-    description: !Sub
-      - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
-      - ResourceName: Function
+    description:
+      Fn::Sub:
+        - 'Stack #{StackTagName} Environment #{EnvironmentTagName} Function #{ResourceName}'
+        - ResourceName: Function
     runtime: java8
     tracing: Active
     iamRoleStatements:
