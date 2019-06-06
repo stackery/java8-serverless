@@ -1,8 +1,11 @@
 service: java8-serverless
-frameworkVersion: '>=1.2.0 <2.0.0'
+frameworkVersion: '>=1.2.0 <2.1.0'
 provider:
   name: aws
   runtime: java8
+  plugins:
+    - serverless-iam-roles-per-function
+    - serverless-cf-vars
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -12,11 +15,6 @@ provider:
         - xray:GetSamplingTargets
         - xray:GetSamplingStatisticSummaries
       Resource: '*'
-package:
-  artifact: build/distributions/java8-serverless.zip
-plugins:
-  - serverless-iam-roles-per-function
-  - serverless-cf-vars
 functions:
   Function:
     handler: Handler::handler
