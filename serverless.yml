@@ -2,6 +2,7 @@ service: java8-serverless
 provider:
   name: aws
   runtime: java8
+  cfLogs: false
   plugins:
     - serverless-iam-roles-per-function
     - serverless-cf-vars
